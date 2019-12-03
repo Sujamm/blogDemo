@@ -86,7 +86,7 @@ app.get("/blogs/:id/edit", (req, res) => {
 // Update Route
 app.put("/blogs/:id", (req, res) => {
 	req.body.blog.body = req.sanitize(req.body.blog.body);
-	Blog.findOneAndUpdate(req.params.id, req.body.blog, (err, updatedBlog) =>{
+	Blog.findOneAndUpdate({_id: req.params.id}, req.body.blog, (err, updatedBlog) =>{
 		if(err){
 			res.redirect("/blogs");
 		} else {
@@ -98,7 +98,7 @@ app.put("/blogs/:id", (req, res) => {
 //Delete Route
 app.delete("/blogs/:id", (req, res) => {
 	console.log("Blogs ID from Delete: " + req.params.id);
-    Blog.findOneAndRemove(req.params.id, (err) =>{
+    Blog.findOneAndRemove({_id: req.params.id}, (err) =>{
 		if(err){
 			res.redirect("/blogs");
 			console.log("ERROR");
